@@ -570,6 +570,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a6c52d99a68b743a31cea0a3c28727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  parentRect: {fileID: 0}
+  basePos: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  moveOffset: {x: 0, y: 0}
+>>>>>>> ObjectPool
 --- !u!114 &148954029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1113,6 +1120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a6c52d99a68b743a31cea0a3c28727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  parentRect: {fileID: 0}
+  basePos: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  moveOffset: {x: 0, y: 0}
+>>>>>>> ObjectPool
 --- !u!114 &785093415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278,6 +2292,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a6c52d99a68b743a31cea0a3c28727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  parentRect: {fileID: 0}
+  basePos: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  moveOffset: {x: 0, y: 0}
+>>>>>>> ObjectPool
 --- !u!114 &2106484475
 MonoBehaviour:
   m_ObjectHideFlags: 0
