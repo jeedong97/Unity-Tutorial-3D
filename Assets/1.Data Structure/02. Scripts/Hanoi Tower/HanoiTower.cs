@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HanoiTower : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class HanoiTower : MonoBehaviour
     public static BoardBar currBar;
     public static int moveCount;
 
+    public Button answerButton;
+    private void Awake()
+    {
+        answerButton.onClick.AddListener(HanoiAnswer);
+    }
     IEnumerator Start()
     {
 
@@ -32,6 +38,7 @@ public class HanoiTower : MonoBehaviour
         }
     }
 
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -42,5 +49,26 @@ public class HanoiTower : MonoBehaviour
             selectedDonut = null;
         }
         countTextUI.text = moveCount.ToString();
+    }
+    public void HanoiAnswer()
+    {
+        HanoiRoutine((int)hanoiLevel, 0, 1, 2);
+    }
+
+    private void HanoiRoutine(int n, int from, int temp, int to)
+    {
+        if (n == 0) // 도넛을 다 옮긴 상태
+            return;
+
+        if (n == 1)
+            Debug.Log($"{n}번 도넛을 {from}에서 {to}로 이동");
+        else
+        {
+            HanoiRoutine(n - 1, from, to, temp);
+            Debug.Log($"{n}번 도넛을 {from}에서 {to}로 이동");
+
+            HanoiRoutine(n - 1, temp, from, to);
+            //Debug.Log("done");
+        }
     }
 }
