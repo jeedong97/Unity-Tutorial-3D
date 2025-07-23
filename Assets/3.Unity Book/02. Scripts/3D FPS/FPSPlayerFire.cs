@@ -4,17 +4,18 @@ using UnityEngine.PlayerLoop;
 public class FPSPlayerFire : MonoBehaviour
 {
     public GameObject firePosition;
-
     public GameObject bombFactory;
+    public GameObject bulletEffect;
+    Animator anim;
 
     public float throwPower = 15f;
     public int weaponPower = 5;
 
-    public GameObject bulletEffect;
     private ParticleSystem ps;
 
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         ps = bulletEffect.GetComponent<ParticleSystem>();
     }
 
@@ -30,6 +31,11 @@ public class FPSPlayerFire : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitInfo))
             {
+                if(anim.GetFloat("MoveMotion") == 0)
+                {
+                    anim.SetTrigger("Attack");
+                }
+
                 if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")) // Raycast를 Enemy가 맞은 경우
                 {
                     EnemyFSM eFSM = hitInfo.transform.GetComponent<EnemyFSM>();

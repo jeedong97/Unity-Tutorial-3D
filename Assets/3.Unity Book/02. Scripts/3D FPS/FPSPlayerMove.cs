@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class FPSPlayerMove : MonoBehaviour
 {
     private CharacterController cc;
+    private Animator anim;
 
     public float moveSpeed = 7f;
 
@@ -16,7 +17,7 @@ public class FPSPlayerMove : MonoBehaviour
 
     public int hp = 20;
 
-    int maxHp = 20;
+    private int maxHp = 20;
     public Slider hpSlider;
 
     public GameObject hitEffect;
@@ -24,6 +25,7 @@ public class FPSPlayerMove : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -36,6 +38,8 @@ public class FPSPlayerMove : MonoBehaviour
 
         Vector3 dir = new Vector3(h, 0, v); // 크기와 방향이 있는 벡터
         dir = dir.normalized; // 방향만 있는 벡터
+
+        anim.SetFloat("MoveMotion", dir.magnitude);
 
         // 카메라의 Transform 기준으로 변환
         dir = Camera.main.transform.TransformDirection(dir);
@@ -60,22 +64,24 @@ public class FPSPlayerMove : MonoBehaviour
             isJumping = true;
             yVelocity = jumpPower; // 점프하는 순간에 yVelocity를 초기화
         }
-
-        hpSlider.value = (float)hp / (float)maxHp;
     }
 
     public void DamageAction(int damage)
     {
         hp -= damage;
+
         hpSlider.value = (float)hp / (float)maxHp;
+
         if (hp > 0)
         {
             StartCoroutine(PlayHitEffect());
         }
     }
+
     IEnumerator PlayHitEffect()
     {
         hitEffect.SetActive(true);
+
         yield return new WaitForSeconds(0.3f);
         hitEffect.SetActive(false);
     }
