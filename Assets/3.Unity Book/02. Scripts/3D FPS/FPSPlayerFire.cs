@@ -13,6 +13,16 @@ public class FPSPlayerFire : MonoBehaviour
     private Animator anim;
     private ParticleSystem ps;
 
+    public GameObject weapon01;
+    public GameObject weapon02;
+
+    public GameObject crosshair01;
+    public GameObject crosshair02;
+    public GameObject crosshair02_Zoom;
+
+    public GameObject weapon01_R;
+    public GameObject weapon02_R;
+
     public TextMeshProUGUI wModeText;
     public GameObject[] eff_Flash;
 
@@ -70,23 +80,25 @@ public class FPSPlayerFire : MonoBehaviour
                     bomb.transform.position = firePosition.transform.position;
 
                     Rigidbody rb = bomb.GetComponent<Rigidbody>();
-                    rb.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
+                    rb.AddForce((Camera.main.transform.forward + Camera.main.transform.up * 0.5f)
+                                * throwPower, ForceMode.Impulse);
                     break;
                 case WeaponMode.Sniper: // 저격 모드일 때 마우스 오른쪽 -> 확대/축소 조준경
-                    // if (!ZoomMode)
-                    // {
-                    //     Camera.main.fieldOfView = 15f;
-                    //     ZoomMode = true;
-                    // }
-                    // else
-                    // {
-                    //     Camera.main.fieldOfView = 60f;
-                    //     ZoomMode = false;
-                    // }
-
                     float fov = ZoomMode ? 60f : 15f;
                     Camera.main.fieldOfView = fov;
+                    if (ZoomMode)
+                    {
+                        crosshair02.SetActive(ZoomMode);
+                        crosshair02_Zoom.SetActive(!ZoomMode);
+                    }
+                    else
+                    {
+                        crosshair02.SetActive(ZoomMode);
+                        crosshair02_Zoom.SetActive(!ZoomMode);
+                    }
                     ZoomMode = !ZoomMode;
+
+
                     break;
             }
         }
@@ -97,18 +109,34 @@ public class FPSPlayerFire : MonoBehaviour
             Camera.main.fieldOfView = 60f;
 
             wModeText.text = "Normal Mode";
+
+            weapon01.SetActive(true);
+            weapon02.SetActive(false);
+            crosshair01.SetActive(true);
+            crosshair02.SetActive(false);
+
+            weapon01_R.SetActive(true);
+            weapon02_R.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             wMode = WeaponMode.Sniper;
 
             wModeText.text = "Sniper Mode";
+
+            weapon01.SetActive(false);
+            weapon02.SetActive(true);
+            crosshair01.SetActive(false);
+            crosshair02.SetActive(true);
+
+            weapon01_R.SetActive(false);
+            weapon02_R.SetActive(true);
         }
     }
 
     IEnumerator ShootEffectOn(float duration)
     {
-        int num = Random.Range(0, eff_Flash.Length - 1);
+        int num = Random.Range(0, eff_Flash.Length);
         eff_Flash[num].SetActive(true);
 
         yield return new WaitForSeconds(duration);
